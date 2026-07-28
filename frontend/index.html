@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>יומן מסחר</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="page-header">
+      <h1>יומן מסחר</h1>
+      <p class="subtitle">מעקב אחר עסקאות קנייה במניות</p>
+    </header>
+
+    <main class="layout">
+      <section class="card" aria-labelledby="form-title">
+        <h2 id="form-title">הוספת עסקה חדשה</h2>
+        <form id="trade-form" novalidate>
+          <div class="field ticker-field">
+            <label for="ticker">טיקר</label>
+            <input
+              type="text"
+              id="ticker"
+              name="ticker"
+              placeholder="לדוגמה AAPL או Apple"
+              autocomplete="off"
+              required
+            />
+            <ul id="ticker-suggestions" class="suggestions" hidden></ul>
+          </div>
+
+          <div class="field">
+            <label for="buy-price">מחיר קנייה</label>
+            <input
+              type="number"
+              id="buy-price"
+              name="buy-price"
+              placeholder="0.00"
+              step="0.01"
+              min="0"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="quantity">כמות</label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              placeholder="1"
+              step="1"
+              min="1"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="buy-date">תאריך קנייה</label>
+            <input type="date" id="buy-date" name="buy-date" required />
+          </div>
+
+          <button type="submit" id="submit-btn">
+            <span class="btn-label">הוספת עסקה</span>
+          </button>
+
+          <p id="form-error" class="form-error" role="alert" hidden></p>
+        </form>
+      </section>
+
+      <section class="card" aria-labelledby="trades-title">
+        <div class="card-header-row">
+          <h2 id="trades-title">העסקאות שלי</h2>
+        </div>
+
+        <p id="status-message" class="status-message" role="status"></p>
+
+        <div class="table-wrap">
+          <table id="trades-table" class="trades-table" hidden>
+            <thead>
+              <tr>
+                <th scope="col">טיקר</th>
+                <th scope="col">מחיר קנייה</th>
+                <th scope="col">כמות</th>
+                <th scope="col">תאריך קנייה</th>
+              </tr>
+            </thead>
+            <tbody id="trades-body"></tbody>
+          </table>
+        </div>
+
+        <p id="empty-message" class="empty-message" hidden>
+          עדיין אין עסקאות. הוסיפו את הראשונה למעלה.
+        </p>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <p id="api-indicator"></p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
