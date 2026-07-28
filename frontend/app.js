@@ -153,6 +153,24 @@ function renderSuggestions(results) {
 function selectSuggestion(result) {
   tickerInput.value = result.symbol;
   hideSuggestions();
+  fillLivePrice(result.symbol);
+}
+
+async function fillLivePrice(symbol) {
+  const originalPlaceholder = buyPriceInput.placeholder;
+  buyPriceInput.placeholder = "טוען מחיר...";
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/tickers/${encodeURIComponent(symbol)}/quote`
+    );
+    if (!response.ok) return;
+    const quote = await response.json();
+    buyPriceInput.value = quote.price.toFixed(2);
+  } catch (err) {
+    // Live price is a convenience default — leave the field for manual entry.
+  } finally {
+    buyPriceInput.placeholder = originalPlaceholder;
+  }
 }
 
 function highlightSuggestion(index) {

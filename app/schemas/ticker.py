@@ -6,3 +6,9 @@ class TickerSearchResult(BaseModel):
     name: str
     exchange: str
     type: str
+
+
+class TickerQuote(BaseModel):
+    symbol: str
+    price: float
+    currency: str
