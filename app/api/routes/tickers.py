@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query, status
 
-from app.schemas.ticker import TickerQuote, TickerSearchResult
+from app.schemas.ticker import TickerChart, TickerQuote, TickerSearchResult
 from app.services import yahoo_finance_service
 
 router = APIRouter()
@@ -20,3 +20,14 @@ def get_ticker_quote(symbol: str) -> TickerQuote:
             detail=f"No quote found for '{symbol}'",
         )
     return quote
+
+
+@router.get("/tickers/{symbol}/chart", response_model=TickerChart)
+def get_ticker_chart(symbol: str) -> TickerChart:
+    chart = yahoo_finance_service.get_intraday_chart(symbol)
+    if chart is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"No chart found for '{symbol}'",
+        )
+    return chart

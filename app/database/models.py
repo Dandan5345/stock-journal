@@ -17,5 +17,5 @@ class Trade(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     ticker: Mapped[str] = mapped_column(String(10), nullable=False)
     buy_price: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)
-    quantity: Mapped[int] = mapped_column(nullable=False)
+    quantity: Mapped[Decimal] = mapped_column(Numeric(18, 6), nullable=False)
     buy_date: Mapped[date] = mapped_column(Date, nullable=False)
